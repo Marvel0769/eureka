@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 组id-->
+    <groupId>com.marve.ad</groupId>
+    <!-- 项目id-->
+    <artifactId>marve-ad</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--聚合工程的子工程列表-->
+    <modules>
+        <module>ad-eureka</module>
+    </modules>
+    <!-- parent打包方式必须为pom-->
+    <packaging>pom</packaging>
+
+    <!-- 名称和描述可要可不要-->
+    <name>marve-ad</name>
+    <description>Project for marve-ad</description>
+
+    <!-- springboot的父工程-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.2.RELEASE</version>
+    </parent>
+
+    <!-- 自定义变量，可以使用${*}进行引用-->
+    <properties>
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+    </properties>
+
+    <!-- 依赖管理，子工程自动继承父工程的依赖-->
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 依赖版本管理，子工程引入依赖而不写版本号的时候，会上溯至dependencyManagement来寻找对应的版本号。注意只是版本号，下边的子工程还需要引入此依赖-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Finchley.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 远程仓库地址。寻找依赖时，依照顺序为：本地仓库-中心仓库-远程仓库。最后到远程仓库也找不到依赖时，会报错。-->
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+</project>
